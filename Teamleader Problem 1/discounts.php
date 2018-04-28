@@ -4,7 +4,7 @@ function spent_over_1000($customer, $order, $products)
 {
     if($customer['revenue'] > 1000)
     {
-        return 'Yes';
+        return '10% off total';
     }
     else
     {
@@ -18,7 +18,7 @@ function five_of_cat_2($customer, $order, $products)
     
     foreach($order['items'] as $index => $item)
     {
-        if(getCategory($item, $products) == 2 && getAmountFree($item) > 0)
+        if(getCategory($item, $products) == 2 and getAmountFree($item) > 0)
         {
             $items[$item['product-id']] = getAmountFree($item) . ' free';
         }
@@ -36,14 +36,27 @@ function five_of_cat_2($customer, $order, $products)
 
 function two_of_cat_1($customer, $order, $products)
 {
-    $items = array();
+    $prices = array();
     
     foreach($order['items'] as $index => $item)
     {
-        if(getCategory($item, $products) == 1 && $item['quantity'] >= 2)
+        if(getCategory($item, $products) == 1)
         {
-            
+            $prices[$item['product-id']] = $item['unit-price'];
         }
+    }
+    
+    if(count($prices) >= 2)
+    { 
+        return '20% off ' . getCheapest($prices);
+    }
+    elseif(count($prices) == 1)
+    {
+        return '20% off ' . $item['product-id'];
+    }
+    else
+    {
+        return 'No';
     }
 }
 
@@ -62,5 +75,20 @@ function getCategory($item, $products)
 
 function getAmountFree($item)
 {
-    return intdiv($item['quantity'], 6);
+    return intdiv($item['quantity'], 5);
+}
+
+function getCheapest($prices)
+{
+    $cheapestPrice = 0;
+    $cheapestID = 0;
+    foreach($prices as $id => $price)
+    {
+        if($cheapestPrice == 0 or $cheapestPrice > $price)
+        {
+            $cheapestPrice = $price;
+            $cheapestID = $id;
+        }
+    }
+    return $cheapestID;
 }

@@ -19,19 +19,25 @@ and open the template in the editor.
             $order = getData($order_file);
             $customers = getData($customer_file);
             $products = getData($product_file);
+            
             $customerID = $order['customer-id'];
             $customer = $customers[$customerID - 1];
+            $orderID = $order['id'];
             
             $discounts = array();
+            $discounts['order-id'] = $orderID;
             $discounts['customer-id'] = $customerID;
             $discounts['name'] = $customer['name'];
-            
+                        
             $available_discounts = ['spent_over_1000','five_of_cat_2','two_of_cat_1'];
                         
             foreach($available_discounts as $discount)
             {
-                $discounts['discounts'][$discount] = 
+                if($discount($customer, $order, $products) != 'No')
+                {
+                    $discounts['discounts'][$discount] = 
                         $discount($customer, $order, $products);
+                }
             }
             
             echo '<pre>' . print_r($discounts, true) . '</pre>';
@@ -42,14 +48,14 @@ and open the template in the editor.
             $file = file_get_contents($data_file);
             
             $data = json_decode($file, true);
-            echo '<pre>' . print_r($data, true) . '</pre>';
+            #echo '<pre>' . print_r($data, true) . '</pre>';
             return $data;
         }
         
         #getData("customers.json");
         #getData("products.json");
         #getData("order1.json");
-        getDiscounts("order1.json", "customers.json", "products.json");
+        getDiscounts("order4.json", "customers.json", "products.json");
         ?>
     </body>
 </html>

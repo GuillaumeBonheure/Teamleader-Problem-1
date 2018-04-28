@@ -1,0 +1,63 @@
+{
+
+  "id": "4",
+
+  "customer-id": "2",
+
+  "items": [
+
+    {
+
+      "product-id": "A101",
+
+      "quantity": "2",
+
+      "unit-price": "9.75",
+
+      "total": "19.50"
+
+    },
+
+    {
+
+      "product-id": "A102",
+
+      "quantity": "1",
+
+      "unit-price": "49.50",
+
+      "total": "49.50"
+
+    },
+    
+    {
+
+      "product-id": "B102",
+
+      "quantity": "10",
+
+      "unit-price": "4.99",
+
+      "total": "49.90"
+
+    },
+    
+    {
+
+      "product-id": "B103",
+
+      "quantity": "23",
+
+      "unit-price": "12.95",
+
+      "total": "297.85"
+
+    }
+
+  ],
+
+  "total": "69.00"
+
+}
+
+
