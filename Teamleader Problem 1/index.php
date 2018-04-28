@@ -12,49 +12,47 @@ and open the template in the editor.
     <body>
         <?php
         
+        $available_discounts = ['spent_over_1000','five_of_cat_2','two_of_cat_1'];
+                                
         require 'discounts.php';
         
         function getDiscounts($order_file, $customer_file, $product_file) 
         {
+            global $available_discounts;
             $order = getData($order_file);
             $customers = getData($customer_file);
             $products = getData($product_file);
+
+            echo "<pre>Order ID: " . $order['id'] .
+                "\nCustomer ID: " . $order['customer-id'] .
+                "\nName: " . $customers[$order['customer-id'] - 1]['name'] .
+                "\nOrder:</pre>";
             
-            $customerID = $order['customer-id'];
-            $customer = $customers[$customerID - 1];
-            $orderID = $order['id'];
+            foreach($order['items'] as $item => $property)
+            {
+                echo "<pre>Item ID: " . $property['product-id'] .
+                    "\nUnit price: " . $property['unit-price'] .
+                    "\nQuantity: " . $property['quantity'] .
+                    "\nTotal price: " . $property['total'] . '</pre><br/>';
+            }
             
-            $discounts = array();
-            $discounts['order-id'] = $orderID;
-            $discounts['customer-id'] = $customerID;
-            $discounts['name'] = $customer['name'];
-                        
-            $available_discounts = ['spent_over_1000','five_of_cat_2','two_of_cat_1'];
+            echo '<pre>Discounts:</pre>';
                         
             foreach($available_discounts as $discount)
             {
-                if($discount($customer, $order, $products) != 'No')
-                {
-                    $discounts['discounts'][$discount] = 
-                        $discount($customer, $order, $products);
-                }
+                echo '<pre>' . $discount($customers[$order['customer-id'] - 1], $order, $products) . '</pre>';
             }
-            echo '<pre>' . print_r($discounts, true) . '</pre>';
-            return $discounts;
-            }
+        }
         
         function getData($data_file)
         {
             $file = file_get_contents($data_file);
             
             $data = json_decode($file, true);
-            #echo '<pre>' . print_r($data, true) . '</pre>';
+            
             return $data;
         }
         
-        #getData("customers.json");
-        #getData("products.json");
-        #getData("order1.json");
         getDiscounts("order4.json", "customers.json", "products.json");
         ?>
     </body>

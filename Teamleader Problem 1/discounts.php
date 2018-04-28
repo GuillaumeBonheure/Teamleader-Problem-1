@@ -4,34 +4,21 @@ function spent_over_1000($customer, $order, $products)
 {
     if($customer['revenue'] > 1000)
     {
-        return '10% off total';
-    }
-    else
-    {
-        return 'No';
+        return '10% off the total order price';
     }
 }
 
 function five_of_cat_2($customer, $order, $products)
-{
-    $items = array();
-    
+{   
+    $result = "";
     foreach($order['items'] as $index => $item)
     {
         if(getCategory($item, $products) == 2 and getAmountFree($item) > 0)
         {
-            $items[$item['product-id']] = getAmountFree($item) . ' free';
+            $result .= getAmountFree($item) . ' extra ' . $item['product-id'] . " for free\n";
         }
     }
-    
-    if(count($items) == 0)
-    {
-        return 'No';
-    }
-    else
-    {
-        return $items;
-    }
+    return $result;
 }
 
 function two_of_cat_1($customer, $order, $products)
@@ -48,15 +35,11 @@ function two_of_cat_1($customer, $order, $products)
     
     if(count($prices) >= 2)
     { 
-        return '20% off ' . getCheapest($prices);
+        return '20% off on one ' . getCheapest($prices);
     }
     elseif(count($prices) == 1)
     {
-        return '20% off ' . $item['product-id'];
-    }
-    else
-    {
-        return 'No';
+        return '20% off on one ' . $item['product-id'];
     }
 }
 
