@@ -39,9 +39,9 @@ and open the template in the editor.
                         $discount($customer, $order, $products);
                 }
             }
-            
             echo '<pre>' . print_r($discounts, true) . '</pre>';
-        }
+            return $discounts;
+            }
         
         function getData($data_file)
         {
