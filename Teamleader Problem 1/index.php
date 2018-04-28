@@ -12,48 +12,26 @@ and open the template in the editor.
     <body>
         <?php
         
+        require 'discounts.php';
+        
         function getDiscounts($order_file, $customer_file, $product_file) 
         {
+            $order = getData($order_file);
             $customers = getData($customer_file);
             $products = getData($product_file);
-            $order = getData($order_file);
+            $customerID = $order['customer-id'];
+            $customer = $customers[$customerID - 1];
             
             $discounts = array();
+            $discounts['customer-id'] = $customerID;
+            $discounts['name'] = $customer['name'];
             
-            foreach ($customers as $customer => $property)
+            $available_discounts = ['spent_over_1000','five_of_cat_2','two_of_cat_1'];
+                        
+            foreach($available_discounts as $discount)
             {
-                if ($property["revenue"] >= 1000)
-                {
-                    $entry = array();
-                    $entry['id'] = $property['id'];
-                    $entry['name'] = $property['name'];
-                    $entry['discount'] = "10% off";
-                    $discounts[] = $entry;
-                }
-            }
-            
-            foreach ($order['items'] as $item => $item_prop)
-            {
-                $product_id = $item_prop['product-id'];
-                $customer_id = $item['customer-id'];
-                
-                foreach ($products as $product => $product_prop)
-                {
-                    if ($product_prop['id'] == $product_id)
-                    {
-                        break;
-                    }
-                }
-                
-                if ($product_prop['category'] == 2)
-                {
-                    $amount_free = intdiv($product_prop['quantity'], 6);
-                    $entry = array();
-                    $entry['id'] = $customer_id;
-                    $entry['name'] = getCustomer($customer_id, $customers);
-                    $entry['discount'] = $amount_free + " free category 2 items";
-                    $discounts[] = $entry;
-                }
+                $discounts['discounts'][$discount] = 
+                        $discount($customer, $order, $products);
             }
             
             echo '<pre>' . print_r($discounts, true) . '</pre>';
@@ -64,13 +42,8 @@ and open the template in the editor.
             $file = file_get_contents($data_file);
             
             $data = json_decode($file, true);
-            #echo '<pre>' . print_r($data, true) . '</pre>';
+            echo '<pre>' . print_r($data, true) . '</pre>';
             return $data;
-        }
-        
-        function getCustomer($id, $customers)
-        {
-            return $customers[$id - 1]['name'];
         }
         
         #getData("customers.json");
