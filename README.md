@@ -14,4 +14,4 @@ To use this solution, one must call the function *getDiscounts()*, found in **in
 The output (as of now) simply prints the current order, followed by any discounts the customer may get on that order.
 
 ### Adding discounts
-To add a discount, one must code a function that returns (in this case, prints) the discount in **discounts.php**, and add the name of that function to the variable *$available_discounts*, found in **index.php**. The function *getDiscounts()* will then automatically also check the order for the newly added discount.
+To add a discount, one must code a function that returns (in this case, prints) the discount in **discounts.php**, and add the name of that function to the variable *$available_discounts*, found in **index.php**. The function *getDiscounts()* will then automatically check the newly added discount as well.
