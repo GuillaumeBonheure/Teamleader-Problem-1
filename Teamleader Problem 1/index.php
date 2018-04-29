@@ -26,7 +26,8 @@
         function getDiscounts($order_file, $customer_file, $product_file) 
         {
             /**
-             * Iterates through every discount in $available_discounts.
+             * Prints a summary of the order, and iterates through all the discounts
+             * available in $available_discounts.
              * 
              * @param   JSON File   $order_file     Specifies the file containing the order to be processed
              * @param   JSON File   $customer_file  Specifies the file containing the customers
@@ -53,7 +54,7 @@
                     "\nQuantity: " . $property['quantity'] .
                     "\nTotal price: " . $property['total'] . '</pre><br/>';
             }
-            
+            echo '<pre>Order total: ' . $order['total'] . '</pre></br>';
             echo '<pre>Discounts:</pre>';
                         
             foreach($available_discounts as $discount)
@@ -77,6 +78,7 @@
             
             return $data;
         }
+        getDiscounts('order4.json', 'customers.json', 'products.json');
         ?>
     </body>
 </html>
