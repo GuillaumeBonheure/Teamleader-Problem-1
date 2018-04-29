@@ -1,8 +1,9 @@
 # Teamleader-Problem-1
 
-This solution contains two files:
+This solution contains a few files:
 1) **index.php**, which contains the main function that runs the order through all the checks in the second file
 2) **discounts.php**, which contains the all functions that check if the given order merits a certain discount
+3) Sample order, customer and product files
 
 ### Usage
 To use this solution, one must call the function *getDiscounts()*, found in **index.php**, and supply it with the following parameters in this order:
