@@ -78,7 +78,6 @@
             
             return $data;
         }
-        getDiscounts('order4.json', 'customers.json', 'products.json');
         ?>
     </body>
 </html>

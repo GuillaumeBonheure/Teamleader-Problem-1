@@ -33,7 +33,6 @@ function five_of_cat_2($customer, $order, $products)
      * Checks if the given order contains 5 of the same items from category 2.
      * If so, a sixth such item is added to the order for free.
      */
-    $result = "";
     foreach($order['items'] as $index => $item)
     {
         if(getCategory($item, $products) == 2 and getAmountFree($item) > 0)
