@@ -69,7 +69,7 @@
              * to put the data in an array.
              * 
              * @param   JSON File   $data_file  Specifies the file to extract the data from
-             * @return  The array containing data from $data_file
+             * @return  array       The array containing data from $data_file
              */
             $file = file_get_contents($data_file);
             

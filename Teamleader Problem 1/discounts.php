@@ -71,6 +71,13 @@ function two_of_cat_1($customer, $order, $products)
 
 function getCategory($item, $products)
 {
+    /**
+     * Gets the category of a given item.
+     * 
+     * @param   array   $item       The item to get the category from
+     * @param   array   $products   The list of products which stores the categories
+     * @return  integer The category of the item
+     */
     $productID = $item['product-id'];
     foreach($products as $index => $product)
     {
@@ -84,11 +91,23 @@ function getCategory($item, $products)
 
 function getAmountFree($item)
 {
+    /**
+     * Gets the amount of free items of a certain kind of category 2
+     * 
+     * @param   array   $item   The item of which the customer may get some extra for free
+     * @return  integer The extra amount the customer would get of a certain item for free
+     */
     return intdiv($item['quantity'], 5);
 }
 
 function getCheapest($prices)
 {
+    /**
+     * Gets the cheapest item ID from a list of given ID's and corresponding prices
+     * 
+     * @param   array   $prices The list with item ID's and corresponding unit prices
+     * @return  integer The item ID of the cheapest item in the list
+     */
     $cheapestPrice = 0;
     $cheapestID = 0;
     foreach($prices as $id => $price)
