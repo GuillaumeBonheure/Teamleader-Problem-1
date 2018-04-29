@@ -4,7 +4,7 @@ function spent_over_1000($customer, $order, $products)
 {
     if($customer['revenue'] > 1000)
     {
-        return '10% off the total order price';
+        echo '<pre>10% off the total order price</pre>';
     }
 }
 
@@ -15,10 +15,9 @@ function five_of_cat_2($customer, $order, $products)
     {
         if(getCategory($item, $products) == 2 and getAmountFree($item) > 0)
         {
-            $result .= getAmountFree($item) . ' extra ' . $item['product-id'] . " for free\n";
+            echo '<pre>' . getAmountFree($item) . ' extra ' . $item['product-id'] . " for free</pre>";
         }
     }
-    return $result;
 }
 
 function two_of_cat_1($customer, $order, $products)
@@ -35,11 +34,11 @@ function two_of_cat_1($customer, $order, $products)
     
     if(count($prices) >= 2)
     { 
-        return '20% off on one ' . getCheapest($prices);
+        echo '<pre>20% off on one ' . getCheapest($prices) . '</pre>';
     }
     elseif(count($prices) == 1)
     {
-        return '20% off on one ' . $item['product-id'];
+        echo '<pre>20% off on one ' . $item['product-id'] . '</pre>';
     }
 }
 

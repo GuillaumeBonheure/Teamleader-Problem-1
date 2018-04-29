@@ -40,7 +40,7 @@ and open the template in the editor.
                         
             foreach($available_discounts as $discount)
             {
-                echo '<pre>' . $discount($customers[$order['customer-id'] - 1], $order, $products) . '</pre>';
+                $discount($customers[$order['customer-id'] - 1], $order, $products);
             }
         }
         
